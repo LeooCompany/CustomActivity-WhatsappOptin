@@ -1,0 +1,10 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+
+article.slds-card {
+    width: clamp(300px, 75%, 600px);
+}

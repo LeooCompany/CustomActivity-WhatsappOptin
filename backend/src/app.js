@@ -14,7 +14,7 @@ app.post('/api/publish',(resquest,response) => response.status(200).json());
 app.post('/api/stop',(resquest,response) => response.status(200).json());
 app.post('/api/execute',(resquest,response) =>
     {
-        console.log(resquest.body)
+        console.log(resquest.body) 
         return response.status(200).json();
     }
 );

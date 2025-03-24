@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{title}}</title>
     <link rel="stylesheet" href="./styles/salesforce-lightning-design-system.min.css" />
+    <link rel="stylesheet" href="./styles/style.css">
   </head>
   <body>
     <article class="slds-card">
@@ -37,7 +38,7 @@
               <option value="1">Opt-In</option>
               <option value="2">Opt-Out</option>
             </select>
-            <small style="color: red; display: none;">The selection box must be configured.</small>
+            <small style="color: red; display: none;" id="select-optin-error">The selection box must be configured.</small>
           </div>
         </div>
 

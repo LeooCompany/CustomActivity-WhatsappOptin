@@ -33,7 +33,8 @@ connection.on("requestedSchema", function (response) {
 connection.on("initActivity", (data) => {
     createdData = { ...createdData, ...data };
     createdData.isConfigured = false;
-    createdData.metadata.optStatus = inputOptin.value;
+    createdData.metadata = createdData.metadata || {};
+    createdData.metadata.optStatus = null;
 
     body = {
         ...body,
@@ -44,23 +45,26 @@ connection.on("initActivity", (data) => {
 
 const inputOptin = document.querySelector("#select-optin");
 const inputOptinErrorText = document.querySelector("#select-optin-error");
-const setErrorMessage = () => {
-    inputOptin.addEventListener("focusout", function (event) {
-        let error = false;
-        if (!event.target.value) {
-            inputOptin.classList.add("slds-has-error");
-            inputOptinErrorText.style.display = "block";
-            error = true;
-        } else {
-            inputOptin.classList.remove("slds-has-error");
-            inputOptinErrorText.style.display = "none";
-            error = false;
-        }
-    });
+inputOptin.addEventListener("focusout", function (event) {
+    SetErrorMessage(event);
+});
+inputOptin.addEventListener("change", function (event) {
+    SetErrorMessage(event);
+});
 
+function SetErrorMessage(event) {
+    if (!event.target.value) {
+        inputOptin.classList.add("slds-has-error");
+        inputOptinErrorText.style.display = "block";
+        connection.trigger('updateButton', { button: 'next', text: 'done', enabled: true });
+    } else {
+        inputOptin.classList.remove("slds-has-error");
+        inputOptinErrorText.style.display = "none";
+        connection.trigger('updateButton', { button: 'next', text: 'done', enabled: false });
+    }
+     
     createdData.metadata.optStatus = inputOptin.value;
-    return error;
-};
+}
 
 connection.on("requestedTokens", onGetTokens);
     function onGetTokens(tokens) {
@@ -76,7 +80,6 @@ const save = () => {
     createdData["arguments"].execute.inArguments.push(schema);
     createdData.arguments.execute.body = JSON.stringify(body);
 
-    if (setErrorMessage) return;
     if (schema.undefined) delete schema.undefined;
 
     console.log("[createdData] " + createdData);
