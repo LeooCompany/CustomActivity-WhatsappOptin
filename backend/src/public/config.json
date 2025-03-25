@@ -1,60 +1,58 @@
 {
-  "workflowApiVersion": "1.1",
-  "metaData": {
-    "category": "Message",
-    "isConfigured": true
-  },
-  "type": "Rest",
-  "lang": {
-    "en-US": {
-      "name": "Teste - node",
-      "step1Label": "Configure Activity"
-    }
-  },
-  "arguments": {
-    "execute": {
-      "url": "https://testenode.loca.lt/api/execute",
-      "verb": "POST",
-      "format": "json",
-      "inArguments": [],
-      "timeout": 100000,
-			"retryCount": 1,
-			"retryDelay": 10000,
-			"concurrentRequests" : 5
-    }
-  },
-  "configurationArguments": {
-    "applicationExtensionKey": "cfa769b1-9862-4fe4-819b-530be2a15be4",
-    "save": {
-      "url": "https://testenode.loca.lt/api/save",
-      "verb": "POST"
+    "workflowApiVersion": "1.1",
+    "metaData": {
+        "category": "Message",
+        "isConfigured": true
     },
-    "publish": {
-      "url": "https://testenode.loca.lt/api/publish",
-      "verb": "POST"
+    "type": "Rest",
+    "lang": {
+        "en-US": {
+            "name": "CA - Whatsapp Optin",
+            "step1Label": "Configure Activity"
+        }
     },
-    "stop": {
-      "url": "https://testenode.loca.lt/api/stop",
-      "verb": "POST"
-    },
-    "validate": {
-      "url": "https://testenode.loca.lt/api/validate",
-      "verb": "POST"
-    }
-  },
-  "wizardSteps": [
-    { "label": "Configure Activity", "key": "step1" }],
-  "userInterfaces": {
-    "configModal": {
-      "height": 400,
-      "width": 1000,
-      "fullscreen": false
-    }
-  },
-  "schema": {
     "arguments": {
-      "execute": {
-        "inArguments": []      }
+        "execute": {
+        "url": "https://testerainer.loca.lt/api/execute",
+        "verb": "POST",
+        "format": "json",
+        "inArguments": [],
+        "timeout": 100000,
+            "retryCount": 1,
+            "retryDelay": 10000,
+            "concurrentRequests" : 5
+        }
+    },
+    "configurationArguments": {
+        "applicationExtensionKey": "cfa769b1-9862-4fe4-819b-530be2a15be4",
+        "save": {
+        "url": "https://testerainer.loca.lt/api/save",
+        "verb": "POST"
+        },
+        "publish": {
+        "url": "https://testerainer.loca.lt/api/publish",
+        "verb": "POST"
+        },
+        "stop": {
+        "url": "https://testerainer.loca.lt/api/stop",
+        "verb": "POST"
+        },
+        "validate": {
+        "url": "https://testerainer.loca.lt/api/validate",
+        "verb": "POST"
+        }
+    },
+    "wizardSteps": [{ "label": "Configure Activity", "key": "step1" }],
+    "userInterfaces": {
+        "configModal": {
+            "height": 400,
+            "width": 1000,
+            "fullscreen": false
+        }
+    },
+    "schema": {
+        "arguments": {
+        "execute": { "inArguments": [] }
+        }
     }
-  }
 }
