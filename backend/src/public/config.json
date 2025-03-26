@@ -16,7 +16,10 @@
         "url": "https://testerainer.loca.lt/api/execute",
         "verb": "POST",
         "format": "json",
-        "inArguments": [],
+        "inArguments": [
+            {"ContactKey": "{{Contact.Default.ContactKey}}"},
+            {"ContactID": "{{Contact.Default.ContactID}}"}
+        ],
         "timeout": 100000,
             "retryCount": 1,
             "retryDelay": 10000,

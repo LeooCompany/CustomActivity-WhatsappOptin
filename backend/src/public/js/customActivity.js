@@ -34,38 +34,64 @@ inputLocale.addEventListener("change", function (event) {
 
 function SetErrorMessage(event) {
     if (!event.target.value) {
-        event.target.classList.add("slds-has-error");
-        connection.trigger('updateButton', { button: 'next', text: 'done', enabled: false }); 
+        event.target.classList.add("slds-has-error"); 
     } else {
         event.target.classList.remove("slds-has-error");
-        connection.trigger('updateButton', { button: 'next', text: 'done', enabled: true });
+    }
+
+    ValidateRequiredFields(document.querySelectorAll('[required]'));
+}
+
+function ValidateRequiredFields(requiredFields) {
+    let allFieldsFull = true;
+    
+    for (let i = 0; i < requiredFields.length; i++) {
+        if (requiredFields[i].value == '' || requiredFields[i].value == undefined) allFieldsFull = false;
+    }
+
+    if (allFieldsFull) { connection.trigger('updateButton', { button: 'next', text: 'done', enabled: true }); }
+    else { connection.trigger('updateButton', { button: 'next', text: 'done', enabled: false }); }
+}
+
+
+
+/**
+ * Gera uma lista de opções dentro de um select.
+ * @param {Node} selectInput 
+ * @param {Array} optionList [{name: 'Opção1', value: 1}, {name: 'Opção2', value: 2}]
+ */
+function CreateOptions(selectInput, optionList) {
+    console.log('Gerando opções do input "' + selectInput.id + '"...');
+
+    let firstOption = selectInput.querySelector('option');
+    for (let i = 0; i < optionList.length; i++) {
+        let newOption = document.createElement('option');
+        newOption.value = optionList[i].value;
+        firstOption.after(newOption);
+        newOption.innerText = optionList[i].name;
     }
 }
 
-
-
-/* Configurar campo de seleção */
-let firstOption = inputLocale.querySelector('option');
-for (let i = 0; i < dataExtensionFields.length; i++) {
-    let newOption = 
-}
 
 
 /* Execução dos eventos */
 connection.on( "requestedTriggerEventDefinition", (eventDefinitionModel) => { // ? Executado quando a ação "requestTriggerEventDefinition" ocorrer. Atualmente ao abrir a atividade.
+    console.log('Avaliando o Entry Source...');
     if (eventDefinitionModel) {
         eventDefinitionKey = eventDefinitionModel.eventDefinitionKey;
-        console.log("[EventDefinitionKey] " + eventDefinitionKey);
     }
 });
 connection.on("requestedSchema", (response) => { // ? Executado quando a ação "requestSchema" ocorrer. Atualmente ao abrir a atividade.
-    console.log(JSON.stringify(response));
+    console.log('Trazendo dados do Entry Source...');
     for (let item of response.schema) {
         schema[item.name] = "{{" + item.key + "}}";
-        dataExtensionFields.push({ name: item.name, type: item.type });
+        dataExtensionFields.push({ name: item.name, type: item.type, value: item.name});
     }
+
+    CreateOptions(inputLocale, dataExtensionFields.filter((option) => option.type === 'Locale')); // * Foi colocado dessa forma, pois a adição do campo só pode ser feita após a inserção dos dados de "schema"
 });
-connection.on("initActivity", (data) => { // ? Executado quando a atividade é aberta no Journey Builder
+connection.on("initActivity", (data) => { // * Executado quando a atividade é aberta no Journey Builder
+    console.log('Iniciando a atividade...');
     createdData = { ...createdData, ...data };
     createdData.isConfigured = false;
     createdData.metaData.optStatus = null;
@@ -74,12 +100,12 @@ connection.on("initActivity", (data) => { // ? Executado quando a atividade é a
         ...body,
         ...(createdData.arguments || { execute: { body: "{}" } }).execute.body,
     };
-    console.log("[body] " + body);
 });
-connection.on("requestedTokens", (tokens) => { // ? Executado quando a ação "requestTokens" ocorrer. Atualmente ao abrir a atividade.
+connection.on("requestedTokens", (tokens) => { // * Executado quando a ação "requestTokens" ocorrer. Atualmente ao abrir a atividade.
+    console.log('Obtendo tokens...');
     authTokens = tokens;
 });
-connection.on("clickedNext", () => { // ? Executado quando o botão de Next/Done for clicado
+connection.on("clickedNext", () => { // * Executado quando o botão de Next/Done for clicado
     createdData["metaData"].isConfigured = true;
     createdData["arguments"].execute.inArguments.push(schema);
     createdData.arguments.execute.body = JSON.stringify(body);
