@@ -24,7 +24,7 @@
         }
     },
     "configurationArguments": {
-        "applicationExtensionKey": "cfa769b1-9862-4fe4-819b-530be2a15be4",
+        "applicationExtensionKey": "945b6823-f05c-40d0-98e3-647e0b381e5b",
         "save": {
         "url": "https://testerainer.loca.lt/api/save",
         "verb": "POST"

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,46 +10,58 @@
 
     <link rel="stylesheet" href="./styles/salesforce-lightning-design-system.min.css" />
     <link rel="stylesheet" href="./styles/style.css">
-  </head>
-  <body>
+</head>
+<body>
     <article class="slds-card">
-      <div class="slds-card__header slds-grid">
-        <header class="slds-media slds-media_center slds-has-flexi-truncate">
-          <div class="slds-media__figure">
-            <span class="slds-icon_container slds-icon-standard-sms" title="WhatsApp">
-              <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                <use xlink:href="./icons/standard-sprite/svg/symbols.svg#messaging_conversation"></use>
-              </svg>
-              <span class="slds-assistive-text" title="">Opt-In WhatsApp Configuration</span>
-            </span>
-          </div>
-          <div class="slds-media__body">
-            <h2 class="slds-card__header-title">
-              <a href="#" class="slds-card__header-link slds-truncate" title="WhatAapp Configuration">
-                <span>Opt-In WhatsApp Configuration</span>
-              </a>
-            </h2>
-          </div>
-        </header>
-      </div>
-      <div class="slds-card__body slds-card__body_inner" id="custom-block">
-        <div class="slds-form-element" id="optinInput">
-          <label class="slds-form-element__label" for="textarea-id-01">Status</label>
-          <div class="slds-form-element__control">
-            <select id="select-optin" class="slds-select">
-              <option value disabled selected>Choose your status</option>
-              <option value="1">Opt-In</option>
-              <option value="2">Opt-Out</option>
-            </select>
-            <small style="color: red; display: none;" id="select-optin-error">The selection box must be configured.</small>
-          </div>
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-sms" title="WhatsApp">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xlink:href="./icons/standard-sprite/svg/symbols.svg#messaging_conversation"></use>
+                        </svg>
+                        <span class="slds-assistive-text" title="">Opt-In WhatsApp Configuration</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a href="#" class="slds-card__header-link slds-truncate" title="WhatAapp Configuration">
+                            <span>Opt-In WhatsApp Configuration</span>
+                        </a>
+                    </h2>
+                </div>
+            </header>
         </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-form-element" id="optinInput">
+                <label class="slds-form-element__label" for="textarea-id-01">Status</label>
+                <div class="slds-form-element__control">
+                    <select id="select-optin" class="slds-select">
+                        <option value disabled selected>Choose your status</option>
+                        <option value="1">Opt-In</option>
+                        <option value="2">Opt-Out</option>
+                    </select>
+                    <small style="color: red; display: none;" id="select-optin-error">The selection box must be configured.</small>
+                </div>
+            </div>
+        </div>    
 
-      </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-form-element" id="optinInput">
+                <label class="slds-form-element__label" for="textarea-id-01">Locale Field</label>
+                <div class="slds-form-element__control">
+                    <select id="select-localeField" class="slds-select">
+                        <option value disabled selected>Choose a field with your Locale data type</option>
+                        
+                    </select>
+                    <small style="color: red; display: none;" id="select-localeField-error">The selection box must be configured.</small>
+                </div>
+            </div>
+        </div>
     </article>
     <script src="./js/postmonger.js"></script>
     <script src="./js/require.js"></script>
     <script src="./js/customActivity.js"></script>
     </script>
-  </body>
+</body>
 </html>

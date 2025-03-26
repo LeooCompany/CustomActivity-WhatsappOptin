@@ -8,3 +8,10 @@ body{
 article.slds-card {
     width: clamp(300px, 75%, 600px);
 }
+
+select + small {
+    display: none;
+}
+select.slds-has-error + small {
+    display: block!important;
+}
