@@ -1,13 +1,15 @@
 {
     "workflowApiVersion": "1.1",
     "metaData": {
-        "category": "Message",
-        "isConfigured": true
+        "icon": "https://static.wixstatic.com/media/9f6980_5cfaf7f38b1e4a37b72bc4b36a3270f7~mv2.png/v1/fill/w_40,h_24,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6980_5cfaf7f38b1e4a37b72bc4b36a3270f7~mv2.png%201x,%20https://static.wixstatic.com/media/9f6980_5cfaf7f38b1e4a37b72bc4b36a3270f7~mv2.png/v1/fill/w_40,h_24,al_c,lg_1,q_85,enc_avif,quality_auto/9f6980_5cfaf7f38b1e4a37b72bc4b36a3270f7~mv2.png%202x",
+        "category": "customer",
+        "isConfigured": false,
+        "configOnDrop": true
     },
     "type": "Rest",
     "lang": {
         "en-US": {
-            "name": "CA - Whatsapp Optin",
+            "name": "Whatsapp Optin",
             "step1Label": "Configure Activity"
         }
     },
@@ -16,10 +18,7 @@
         "url": "https://testerainer.loca.lt/api/execute",
         "verb": "POST",
         "format": "json",
-        "inArguments": [
-            {"ContactKey": "{{Contact.Default.ContactKey}}"},
-            {"ContactID": "{{Contact.Default.ContactID}}"}
-        ],
+        "inArguments": [],
         "timeout": 100000,
             "retryCount": 1,
             "retryDelay": 10000,
@@ -29,20 +28,20 @@
     "configurationArguments": {
         "applicationExtensionKey": "945b6823-f05c-40d0-98e3-647e0b381e5b",
         "save": {
-        "url": "https://testerainer.loca.lt/api/save",
-        "verb": "POST"
+            "url": "https://testerainer.loca.lt/api/save",
+            "verb": "POST"
         },
         "publish": {
-        "url": "https://testerainer.loca.lt/api/publish",
-        "verb": "POST"
+            "url": "https://testerainer.loca.lt/api/publish",
+            "verb": "POST"
         },
         "stop": {
-        "url": "https://testerainer.loca.lt/api/stop",
-        "verb": "POST"
+            "url": "https://testerainer.loca.lt/api/stop",
+            "verb": "POST"
         },
         "validate": {
-        "url": "https://testerainer.loca.lt/api/validate",
-        "verb": "POST"
+            "url": "https://testerainer.loca.lt/api/validate",
+            "verb": "POST"
         }
     },
     "wizardSteps": [{ "label": "Configure Activity", "key": "step1" }],

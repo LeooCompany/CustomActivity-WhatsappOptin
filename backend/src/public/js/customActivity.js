@@ -39,14 +39,14 @@ function SetErrorMessage(event) {
         event.target.classList.remove("slds-has-error");
     }
 
-    ValidateRequiredFields(document.querySelectorAll('[required]'));
+    ValidateFields(document.querySelectorAll('[required]'));
 }
 
-function ValidateRequiredFields(requiredFields) {
+function ValidateFields(fields) {
     let allFieldsFull = true;
     
-    for (let i = 0; i < requiredFields.length; i++) {
-        if (requiredFields[i].value == '' || requiredFields[i].value == undefined) allFieldsFull = false;
+    for (let i = 0; i < fields.length; i++) {
+        if (fields[i].value == '' || fields[i].value == undefined) allFieldsFull = false;
     }
 
     if (allFieldsFull) { connection.trigger('updateButton', { button: 'next', text: 'done', enabled: true }); }
@@ -88,33 +88,43 @@ connection.on("requestedSchema", (response) => { // ? Executado quando a ação 
         dataExtensionFields.push({ name: item.name, type: item.type, value: item.name});
     }
 
+    schema.phoneNumber = "{{Contact.Default.PhoneNumber}}";
+    schema.ContactKey = "{{Contact.Default.ContactKey}}";
+    schema.ContactID = "{{Contact.Default.ContactID}}";
+
     CreateOptions(inputLocale, dataExtensionFields.filter((option) => option.type === 'Locale')); // * Foi colocado dessa forma, pois a adição do campo só pode ser feita após a inserção dos dados de "schema"
+
+    if (createdData.metaData.optStatus) inputOptin.value = createdData.metaData.optStatus; // * Precisa ser executado após a criação das opções nos seletores
+    if (createdData.metaData.localeField) inputLocale.value = createdData.metaData.localeField;
+
+    ValidateFields(document.querySelectorAll('[required]'));
 });
 connection.on("initActivity", (data) => { // * Executado quando a atividade é aberta no Journey Builder
     console.log('Iniciando a atividade...');
     createdData = { ...createdData, ...data };
+    body = {...body, ...((createdData.arguments || {execute:{body:'{}'}}).execute.body)};
     createdData.isConfigured = false;
-    createdData.metaData.optStatus = null;
-
-    body = {
-        ...body,
-        ...(createdData.arguments || { execute: { body: "{}" } }).execute.body,
-    };
+    createdData.arguments.execute.inArguments = [];
 });
 connection.on("requestedTokens", (tokens) => { // * Executado quando a ação "requestTokens" ocorrer. Atualmente ao abrir a atividade.
     console.log('Obtendo tokens...');
     authTokens = tokens;
 });
 connection.on("clickedNext", () => { // * Executado quando o botão de Next/Done for clicado
-    createdData["metaData"].isConfigured = true;
-    createdData["arguments"].execute.inArguments.push(schema);
-    createdData.arguments.execute.body = JSON.stringify(body);
-
+    /* Dados que serão lembrados pela Custom Activity */
+    createdData.metaData.isConfigured = true;
+    createdData.isConfigured = true;
     createdData.metaData.optStatus = inputOptin.value;
     createdData.metaData.localeField = inputLocale.value;
 
+    /* Dados enviados quando a ação de execução é chamada */
+    createdData.arguments.execute.inArguments.push(schema);
+    body.optStatus = inputOptin.value;
+    body.localeField = inputLocale.value;
+    createdData.arguments.execute.body = JSON.stringify(body);
+
     if (schema.undefined) delete schema.undefined;
 
-    console.log("[createdData] ", JSON.stringify(createdData));
+    console.log(JSON.stringify(createdData));
     connection.trigger("updateActivity", createdData);
 });
