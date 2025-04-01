@@ -34,7 +34,7 @@
         </div>
         <div class="slds-card__body slds-card__body_inner">
             <div class="slds-form-element" id="optinInput">
-                <label class="slds-form-element__label" for="textarea-id-01">Status</label>
+                <label class="slds-form-element__label" for="optinInput">Status</label>
                 <div class="slds-form-element__control">
                     <select id="select-optin" class="slds-select" required>
                         <option value disabled selected>Choose your status</option>
@@ -47,11 +47,24 @@
         </div>    
 
         <div class="slds-card__body slds-card__body_inner">
-            <div class="slds-form-element" id="optinInput">
-                <label class="slds-form-element__label" for="textarea-id-01">Locale Field</label>
+            <div class="slds-form-element" id="localeField">
+                <label class="slds-form-element__label" for="localeField">Locale Field</label>
                 <div class="slds-form-element__control">
                     <select id="select-localeField" class="slds-select" required>
                         <option value disabled selected>Choose a field with your Locale data type</option>
+                        
+                    </select>
+                    <small style="color: red; display: none;" id="select-localeField-error">The selection box must be configured.</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-form-element" id="phoneField">
+                <label class="slds-form-element__label" for="phoneField">Phone Field</label>
+                <div class="slds-form-element__control">
+                    <select id="select-phoneField" class="slds-select" required>
+                        <option value disabled selected>Choose a field with the phone number used to send</option>
                         
                     </select>
                     <small style="color: red; display: none;" id="select-localeField-error">The selection box must be configured.</small>
