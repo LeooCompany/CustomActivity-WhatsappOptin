@@ -135,10 +135,11 @@ connection.on("clickedNext", () => { // * Executado quando o botão de Next/Done
 
     /* Dados enviados quando a ação de execução é chamada */
     createdData.arguments.execute.inArguments.push(schema);
-    createdData.arguments.execute.inArguments.push({ optinStatus: inputOptin.value });
-    createdData.arguments.execute.inArguments.push({ usedLocaleField: inputLocale.value });
-    createdData.arguments.execute.inArguments.push({ usedPhoneField: inputPhone.value });
-    // createdData.arguments.execute.metadata = {"teste": "teste"};
+    createdData.arguments.execute.inArguments.push({
+        optinStatus: inputOptin.value,
+        usedLocaleField: inputLocale.value,
+        usedPhoneField: inputPhone.value
+    });
 
     if (schema.undefined) delete schema.undefined;
 

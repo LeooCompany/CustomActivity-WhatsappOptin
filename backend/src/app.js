@@ -29,6 +29,13 @@ app.post('/api/execute',(resquest,response) =>
         // let {metadata, ...cleanData} = resquest.body;
         console.log('Obtendo dados do Contato...');
         console.log(resquest.body);
+
+        const contactId = resquest.body.InArguments[0].ContactID;
+        const phone = resquest.body.InArguments[1].usedPhoneField;
+        const locale = resquest.body.InArguments[1].usedLocaleField;
+        const status = resquest.body.InArguments[1].optinStatus;
+
+        
         return response.status(200).json(); 
     }
 );
